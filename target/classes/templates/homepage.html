@@ -1,0 +1,57 @@
+<style>
+    input[type="checkbox"]  {
+        display: none;
+    }
+</style>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - CodeJava</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+
+        function change(x, id, _this) {
+            if ($('input[type=checkbox]:checked').length === 1) {
+                var elem = document.getElementById("captain");
+                x.style.color = '#FF0000';
+                elem.value = id;
+                console.log(elem.value);
+            }else if ($('input[type=checkbox]:checked').length > 5) {
+                alert("allowed only 5");
+                _this.checked = false;
+                x.style.color = '#000000';
+            }else{
+                if (_this.checked) {
+                    x.style.color = '#FF0000';
+                } else  {
+                    x.style.color = '#000000';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Benvenuto, crea la tua squadra</h1>
+    </div>
+
+    <form method="post" th:action="@{/newTeam}" th:object="${teams}">
+        <label id="hongjoong"><input type="checkbox" name="memberName" value="Hongjoong" onchange="change(hongjoong, 'Hongjoong', this)">Hongjoong</label>
+        <label id="seonghwa"><input type="checkbox" name="memberName" value="Seonghwa" onchange="change(seonghwa, 'Seonghwa', this)">Seonghwa</label>
+        <label id="yunho"><input type="checkbox" name="memberName" value="Yunho" onchange="change(yunho, 'Yunho', this)">Yunho</label>
+        <label id="yeosang"><input type="checkbox" name="memberName" value="Yeosang" onchange="change(yeosang, 'Yeonsang', this)">Yeonsang</label>
+        <label id="mingi"><input type="checkbox" name="memberName" value="Mingi" onchange="change(mingi, 'Mingi', this)">Mingi</label>
+        <label id="san"><input type="checkbox" name="memberName" value="San" onchange="change(san, 'San', this)">San</label>
+        <label id="wooyoung"><input type="checkbox" name="memberName" value="Wooyoung" onchange="change(wooyoung, 'Wooyoung', this)">Wooyoung</label>
+        <label id="jongho"><input type="checkbox" name="memberName" value="Jongho" onchange="change(jongho, 'Jongho', this)">Jongho</label>
+        <input type="hidden" id="captain" name="captain" value="">
+        <br><br>Il primo membro selezionato sar&agrave; il capitano della tua squadra!<br><br>
+        <input type="text" id="teamName" name="teamName" placeholder="Inserisci il nome della tua squadra">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

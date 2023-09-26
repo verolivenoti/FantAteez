@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - CodeJava</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <table>
+        <tr th:each="user: ${userPlacing}">
+            <td th:text="${user.username}" />
+            <td th:text="${user.teamName}"/>
+            <td th:text="${user.points}" />
+        </tr>
+    </table>
+
+    <table>
+        <tr th:each="member: ${membersPlacing}">
+            <td th:text="${member.name}" />
+            <td th:text="${member.score}"/>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
