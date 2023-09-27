@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -23,11 +24,12 @@ public class TeamController {
     private TeamRepository tRepository;
 
     @PostMapping("/newTeam")
-    public String newTeam(TeamsHelper teams){
+    public String newTeam(TeamsHelper teams, RedirectAttributes redirectAttrs){
 
         Teams team = new Teams();
 
         for(String member: teams.getMemberName()){
+            int idUser = teams.getIdUser();
             team.setIdUser(teams.getIdUser());
             team.setTeamName(teams.getTeamName());
             team.setMemberName(member);
@@ -37,6 +39,7 @@ public class TeamController {
                 team.setCaptain(false);
             }
 
+            redirectAttrs.addFlashAttribute("idUser", idUser);
             teamRepository.insertTeams(team);
         }
 

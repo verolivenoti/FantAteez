@@ -48,6 +48,7 @@
         <label id="wooyoung"><input type="checkbox" name="memberName" value="Wooyoung" onchange="change(wooyoung, 'Wooyoung', this)">Wooyoung</label>
         <label id="jongho"><input type="checkbox" name="memberName" value="Jongho" onchange="change(jongho, 'Jongho', this)">Jongho</label>
         <input type="hidden" id="captain" name="captain" value="">
+        <input type="hidden" id="idUser" name="idUser" th:value="${idUser}">
         <br><br>Il primo membro selezionato sar&agrave; il capitano della tua squadra!<br><br>
         <input type="text" id="teamName" name="teamName" placeholder="Inserisci il nome della tua squadra">
         <input type="submit">

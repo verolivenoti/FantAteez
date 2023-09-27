@@ -85,10 +85,11 @@ public class LoginController {
         }
 
         List<Teams> teams = teamRepository.findByIdUser(users.getId());
-        if(teams == null){
+        if(teams.isEmpty()){
             List<Members> members = memberRepository.findAll();
             model.addAttribute("members", members);
             model.addAttribute("teams", new TeamsHelper());
+            model.addAttribute("idUser", users.getId());
             return "homepage";
         }else {
             redirectAttrs.addFlashAttribute("idUser", users.getId());
