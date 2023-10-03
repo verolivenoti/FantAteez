@@ -120,7 +120,6 @@ public class LoginController {
             model.addAttribute("idUser", idUser);
             return "homepage";
         }else {
-            redirectAttrs.addFlashAttribute("idUser", idUser);
             return "redirect:/yourTeam";
         }
     }

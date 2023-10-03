@@ -3,6 +3,8 @@ package com.capitaneriadiporto.fantateez;
 import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +49,18 @@ public class TeamController {
     }
 
     @GetMapping("/yourTeam")
-    public String yourTeam(@ModelAttribute("idUser") int idUser, Model model){
-        List<Scores> scores = teamRepository.teamWithMembersNameAndScores(idUser);
+    public String yourTeam(Model model, HttpServletRequest request){
+        String token = "";
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c: cookies){
+                if(c.getName().equals("JSESSIONID")){
+                    token = c.getValue();
+                }
+            }
+        }
+        List<Scores> scores = teamRepository.teamWithMembersNameAndScores(token);
         int totalScore = 0;
         String teamName = "";
         for (Scores s : scores) {

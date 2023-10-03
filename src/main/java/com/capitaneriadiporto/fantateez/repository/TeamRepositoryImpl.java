@@ -29,11 +29,12 @@ public class TeamRepositoryImpl {
     }
 
     @Transactional
-    public List<Scores> teamWithMembersNameAndScores(int idUser){
+    public List<Scores> teamWithMembersNameAndScores(String token){
          return entityManager.createNativeQuery("SELECT t.team_name, t.member_name, m.score FROM teams t " +
                 "LEFT JOIN members m ON m.name=t.member_name " +
-                "WHERE t.id_user=?")
-                .setParameter(1, idUser).unwrap(org.hibernate.query.Query.class)
+                "LEFT JOIN users u ON u.id=t.id_user " +
+                "WHERE u.token=?")
+                .setParameter(1, token).unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new AliasToBeanResultTransformer(Scores.class))
                 .list();
     }
