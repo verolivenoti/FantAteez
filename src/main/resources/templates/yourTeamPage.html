@@ -7,6 +7,21 @@
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand">Spring Security Custom Login-Logout Example</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container text-center">
             <div>
                 <h1 th:text="${header}"></h1>
@@ -21,7 +36,7 @@
             <table>
                 <tr>
                     <td><a th:href="@{/classifica}"><button class="btn btn-primary">Vedi classifica</button></a></td>
-                    <td><a th:href="@{/FAQ}"><button class="btn btn-primary">FAQ</button></a></td>
+                    <td><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary">Aiuto</button></a></td>
                 </tr>
             </table>
         </div>

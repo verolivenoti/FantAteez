@@ -7,19 +7,27 @@ import com.capitaneriadiporto.fantateez.repository.MemberRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
 import com.capitaneriadiporto.fantateez.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
@@ -37,7 +45,33 @@ public class LoginController {
     private MemberRepository memberRepository;
 
     @GetMapping("")
-    public String viewHomepage(){
+    public String viewHomepage(RedirectAttributes redirectAttrs, HttpServletRequest request){
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c: cookies){
+                if(c.getName().equals("JSESSIONID")){
+                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                    Users users = userRepository.findByUsername(auth.getName());
+
+                    /* The user is logged in :) */
+                    redirectAttrs.addFlashAttribute("idUser", users.getId());
+                    return "redirect:/dis";
+                }
+            }
+        }
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (!(auth instanceof AnonymousAuthenticationToken)) {
+//
+//            Users users = userRepository.findByUsername(auth.getName());
+//
+//            /* The user is logged in :) */
+//            redirectAttrs.addFlashAttribute("idUser", users.getId());
+//            return "redirect:/dis";
+//        }
+
         return "index";
     }
 
@@ -56,7 +90,7 @@ public class LoginController {
 
         userRepository.save(users);
 
-        return "register_success";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -84,15 +118,21 @@ public class LoginController {
             }
         }
 
-        List<Teams> teams = teamRepository.findByIdUser(users.getId());
+        redirectAttrs.addFlashAttribute("idUser", users.getId());
+        return "redirect:/dis";
+    }
+
+    @GetMapping("/dis")
+    public String disambiguation(@ModelAttribute("idUser") int idUser,  Model model, RedirectAttributes redirectAttrs){
+        List<Teams> teams = teamRepository.findByIdUser(idUser);
         if(teams.isEmpty()){
             List<Members> members = memberRepository.findAll();
             model.addAttribute("members", members);
             model.addAttribute("teams", new TeamsHelper());
-            model.addAttribute("idUser", users.getId());
+            model.addAttribute("idUser", idUser);
             return "homepage";
         }else {
-            redirectAttrs.addFlashAttribute("idUser", users.getId());
+            redirectAttrs.addFlashAttribute("idUser", idUser);
             return "redirect:/yourTeam";
         }
     }
