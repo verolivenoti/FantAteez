@@ -13,7 +13,6 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script>
         function change(x, id, _this) {
-            console.log($('input[type=checkbox]:checked').length);
             if ($('input[type=checkbox]:checked').length === 1) {
                 var elem = document.getElementById("captain");
                 document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)" checked><img src="icon_' + id + '_captain.png" width="150" height="150">';

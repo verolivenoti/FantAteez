@@ -5,6 +5,12 @@
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            function loadBanner(member_name) {
+                console.log(member_name);
+                document.getElementById(member_name).innerHTML = '<img src=' + member_name + '_banner.png">';
+            }
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,8 +34,9 @@
             </div>
             <table>
                 <tr th:each="member: ${scores}">
-                    <td th:text="${member.member_name}" />
-                    <td th:text="${member.score}" />
+
+                    <td><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></td>
+<!--                    <td th:text="${member.score}" />-->
                 </tr>
             </table>
             <a th:href="@{/bonusList}"><button class="btn btn-primary">Lista bonus</button></a>
