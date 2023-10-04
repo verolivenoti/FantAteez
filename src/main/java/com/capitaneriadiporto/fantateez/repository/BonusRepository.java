@@ -16,4 +16,7 @@ public interface BonusRepository extends JpaRepository<Bonuses, Integer> {
     @Modifying
     @Query(value = "UPDATE members SET score=(SELECT b.points FROM bonuses b WHERE b.bonus=?2) + (SELECT score FROM members WHERE name=?1) WHERE name=?1", nativeQuery = true)
     public int updatePoints(String member, String bonus);
+
+    @Query(value = "", nativeQuery = true)
+    public int deleteByBonus(String bonus);
 }
