@@ -1,0 +1,90 @@
+<style>
+    /* The alert message box */
+    .alert {
+        padding: 20px;
+        background-color: #f44336; /* Red */
+        color: white;
+        margin-bottom: 15px;
+    }
+    .success {
+        padding: 20px;
+        background-color: forestgreen; /* Red */
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }
+</style>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - CodeJava</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Spring Security Custom Login-Logout Example</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container text-center">
+    <th:block th:if="${error != null}">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${error}"></span>
+        </div>
+    </th:block>
+    <th:block th:if="${message != null}">
+        <div class="success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${message}"></span>
+        </div>
+    </th:block>
+    <form th:action="@{/addPoints}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <label for="bonus">Seleziona il bonus:</label>
+        <input type="text" name="bonus" list="bonus">
+        <datalist id="bonus">
+            <option th:each="bonus: ${bonuses}" th:value="${bonus.getBonus()}">
+        </datalist>
+
+        <br><label for="member">Seleziona il membro:</label>
+        <input type="text" name="member" list="member">
+        <datalist id="member">
+            <option th:each="member: ${members}" th:value="${member.getName()}">
+        </datalist>
+        <div>
+            <button type="submit" class="btn btn-primary">Aggiungi punti</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

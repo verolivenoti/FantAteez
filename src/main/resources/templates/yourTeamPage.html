@@ -1,3 +1,17 @@
+<style>
+    .bottom-left {
+        position: absolute;
+        bottom: 35px;
+        left: 50px;
+        font-size: 30px;
+    }
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+</style>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="ISO-8859-1">
@@ -12,7 +26,7 @@
             }
         </script>
     </head>
-    <body>
+    <body style="background-color: rebeccapurple;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand">Spring Security Custom Login-Logout Example</a>
@@ -35,8 +49,7 @@
             <table>
                 <tr th:each="member: ${scores}">
 
-                    <td><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></td>
-<!--                    <td th:text="${member.score}" />-->
+                    <td><div class="container"><div class="bottom-left"><span th:text="${member.score}"/></div><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></div></td>
                 </tr>
             </table>
             <a th:href="@{/bonusList}"><button class="btn btn-primary">Lista bonus</button></a>

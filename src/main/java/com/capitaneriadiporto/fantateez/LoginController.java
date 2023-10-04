@@ -1,5 +1,6 @@
 package com.capitaneriadiporto.fantateez;
 
+import com.capitaneriadiporto.fantateez.entity.Bonuses;
 import com.capitaneriadiporto.fantateez.entity.Members;
 import com.capitaneriadiporto.fantateez.entity.Teams;
 import com.capitaneriadiporto.fantateez.entity.Users;
@@ -29,6 +30,9 @@ public class LoginController {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private BonusRepository bonusRepository;
 
     @GetMapping("")
     public String viewHomepage(RedirectAttributes redirectAttrs, HttpServletRequest request){
@@ -93,13 +97,25 @@ public class LoginController {
             }
         }
 
+        if(users.getRole().equals("ADMIN")){
+            return "redirect:/adminPage";
+        }
+
         redirectAttrs.addFlashAttribute("idUser", users.getId());
         return "redirect:/dis";
     }
 
+    @GetMapping("/adminPage")
+    public String adminPage(Model model){
+        List<Bonuses> bonuses = bonusRepository.findAll();
+        List<Members> members = memberRepository.findAll();
+        model.addAttribute("bonuses", bonuses);
+        model.addAttribute("members", members);
+        return "adminHomepage";
+    }
+
     @GetMapping("/dis")
-    public String disambiguation(@ModelAttribute("idUser") int idUser,  Model model, RedirectAttributes redirectAttrs,
-                                 HttpServletRequest request){
+    public String disambiguation(@ModelAttribute("idUser") int idUser,  Model model, HttpServletRequest request){
         String token = "";
 
         Cookie[] cookies = request.getCookies();
