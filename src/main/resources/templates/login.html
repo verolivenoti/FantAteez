@@ -23,20 +23,28 @@
     .closebtn:hover {
         color: black;
     }
+
+     #grad1 {
+         background-image: linear-gradient(black, #7800ff);
+     }
+
+     label{
+         color: white;
+     }
 </style>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Sign Up - CodeJava</title>
+    <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body id="grad1">
 <div class="container text-center">
     <div>
-        <h1>User Login</h1>
+        <img src="accedi.png" height="100px" width="400px">
     </div>
     <th:block th:if="${error != null}">
         <div class="alert">
@@ -63,7 +71,7 @@
             </div>
             <th:block th:if="${credentialError != null}"><span th:text="${credentialError}"></span></th:block>
             <div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Accedi</button>
             </div>
         </div>
     </form>

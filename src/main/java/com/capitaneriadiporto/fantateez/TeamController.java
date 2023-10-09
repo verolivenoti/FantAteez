@@ -67,7 +67,7 @@ public class TeamController {
             teamName = s.getTeam_name();
             totalScore += s.getScore();
         }
-        model.addAttribute("header", teamName + " Punteggio totale: " + totalScore);
+        model.addAttribute("header", teamName + " punteggio totale: " + totalScore);
         model.addAttribute("scores", scores);
         return "yourTeamPage";
     }

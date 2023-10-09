@@ -1,16 +1,24 @@
+<style>
+    #grad1 {
+        background-image: linear-gradient(black, #7800ff);
+    }
+    label{
+        color: white;
+    }
+</style>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Sign Up - CodeJava</title>
+    <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body id="grad1">
 <div class="container text-center">
     <div>
-        <h1>User Registration - Sign Up</h1>
+        <img src="new_account.png" height="100px" width="1000px">
     </div>
     <form th:action="@{/process_register}" th:object="${users}"
           method="post" style="max-width: 600px; margin: 0 auto;">
@@ -37,7 +45,7 @@
             </div>
 
             <div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Crea account</button>
             </div>
         </div>
     </form>

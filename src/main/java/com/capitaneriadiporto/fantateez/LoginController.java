@@ -43,9 +43,14 @@ public class LoginController {
                 if(c.getName().equals("JSESSIONID")){
                     Users users = userRepository.findByToken(c.getValue());
 
-                    /* The user is logged in :) */
-                    redirectAttrs.addFlashAttribute("idUser", users.getId());
-                    return "redirect:/dis";
+                    if(users == null){
+                        return "redirect:/login";
+                    }else{
+                        /* The user is logged in :) */
+                        redirectAttrs.addFlashAttribute("idUser", users.getId());
+                        return "redirect:/dis";
+                    }
+
                 }
             }
         }

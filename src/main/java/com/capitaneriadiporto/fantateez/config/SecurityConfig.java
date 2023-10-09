@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/yourTeam","/bonusList", "/classifica", "/FAQ", "/homepage").authenticated()
                 .and()
                 .httpBasic()
-                .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
+//                .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
                 .and()
                 .csrf().disable()
                 .logout()

@@ -11,6 +11,18 @@
         color: white;
     }
 
+    #grad1 {
+        background-image: linear-gradient(black, #7800ff);
+    }
+
+    .navbar.bg-dark{
+        background-color: black !important;
+    }
+
+    #class,#help,#bonus{
+        padding-top: 20px;
+        padding-left: 20px;
+    }
 </style>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -26,20 +38,14 @@
             }
         </script>
     </head>
-    <body style="background-color: rebeccapurple;">
+    <body id="grad1">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand">Spring Security Custom Login-Logout Example</a>
+                <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
             </div>
         </nav>
         <div class="container text-center">
@@ -52,11 +58,11 @@
                     <td><div class="container"><div class="bottom-left"><span th:text="${member.score}"/></div><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></div></td>
                 </tr>
             </table>
-            <a th:href="@{/bonusList}"><button class="btn btn-primary">Lista bonus</button></a>
             <table>
-                <tr>
-                    <td><a th:href="@{/classifica}"><button class="btn btn-primary">Vedi classifica</button></a></td>
-                    <td><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary">Aiuto</button></a></td>
+                <tr >
+                    <td id="class"><a th:href="@{/classifica}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Vedi classifica</button></a></td>
+                    <td id="help"><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Aiuto</button></a></td>
+                    <td id="bonus"><a th:href="@{/bonusList}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Lista bonus</button></a></td>
                 </tr>
             </table>
         </div>

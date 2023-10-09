@@ -1,17 +1,35 @@
+<style>
+    #grad1 {
+        background-image: linear-gradient(black, #7800ff);
+    }
+
+    a {
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        color:white !important;
+        text-decoration:none !important;
+        cursor:pointer;
+    }
+</style>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Welcome to CodeJava Home</title>
+    <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body id="grad1">
 <div class="container text-center">
-    <h1>FantAteez</h1>
-    <h3><a th:href="@{/register}">Register</a></h3>
-    <h3><a th:href="@{/login}">Login</a></h3>
+    <h1 style="color:white;"><img src="FANTATEEZ.png"/></h1>
+    <div style="padding-top: 50px">
+        <h3><a th:href="@{/login}">Accedi</a></h3>
+        <h3><a th:href="@{/register}">Crea account</a></h3>
+    </div>
 </div>
 
 </body>
