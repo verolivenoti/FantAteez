@@ -50,8 +50,9 @@ public class TeamRepositoryImpl {
     @Transactional
     public List<UserPlacing> selectUserPlacing(){
         return entityManager.createNativeQuery("SELECT u.username, t.team_name, sum(m.score) AS score FROM public.users u " +
-                        "LEFT JOIN public.teams t ON t.id_user=u.id " +
+                        "RIGHT JOIN public.teams t ON t.id_user=u.id " +
                         "LEFT JOIN public.members m ON m.name=t.member_name " +
+                        "WHERE u.role LIKE 'USER' " +
                         "GROUP BY u.username, t.team_name " +
                         "ORDER BY score " +
                         "LIMIT 10")

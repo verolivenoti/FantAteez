@@ -1,8 +1,10 @@
 package com.capitaneriadiporto.fantateez;
 
+import com.capitaneriadiporto.fantateez.Utils.Counter;
 import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
+import com.capitaneriadiporto.fantateez.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,42 @@ public class TeamController {
     private TeamRepositoryImpl teamRepository;
 
     @Autowired
-    private TeamRepository tRepository;
+    private UserRepository userRepository;
+
+    public boolean checkUser(String token){
+        boolean userLogged = false;
+
+        List<Users> users = userRepository.findAll();
+
+        for(Users u: users){
+            if (token.equals(u.getToken())) {
+                userLogged = true;
+                break;
+            }
+        }
+
+        return userLogged;
+    }
 
     @PostMapping("/newTeam")
-    public String newTeam(TeamsHelper teams, RedirectAttributes redirectAttrs){
+    public String newTeam(TeamsHelper teams, RedirectAttributes redirectAttrs, HttpServletRequest request){
+
+        String token = "";
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c: cookies){
+                if(c.getName().equals("JSESSIONID")){
+                    token = c.getValue();
+                }
+            }
+        }
+
+        boolean isUserLogged = checkUser(token);
+
+        if(!isUserLogged){
+            return "redirect:/login";
+        }
 
         Teams team = new Teams();
 
@@ -60,6 +94,13 @@ public class TeamController {
                 }
             }
         }
+
+        boolean isUserLogged = checkUser(token);
+
+        if(!isUserLogged){
+            return "redirect:/login";
+        }
+
         List<Scores> scores = teamRepository.teamWithMembersNameAndScores(token);
         int totalScore = 0;
         String teamName = "";
@@ -73,23 +114,55 @@ public class TeamController {
     }
 
     @GetMapping("/bonusList")
-    public String bonusList(Model model){
+    public String bonusList(Model model, HttpServletRequest request){
+        String token = "";
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c: cookies){
+                if(c.getName().equals("JSESSIONID")){
+                    token = c.getValue();
+                }
+            }
+        }
+
+        boolean isUserLogged = checkUser(token);
+
+        if(!isUserLogged){
+            return "redirect:/login";
+        }
+
         List<Bonuses> bonuses = teamRepository.findAllBonuses();
         model.addAttribute("bonuses", bonuses);
         return "bonusList";
     }
 
     @GetMapping("/classifica")
-    public String classifica(Model model){
+    public String classifica(Model model, HttpServletRequest request){
+        String token = "";
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for(Cookie c: cookies){
+                if(c.getName().equals("JSESSIONID")){
+                    token = c.getValue();
+                }
+            }
+        }
+
+        boolean isUserLogged = checkUser(token);
+
+        if(!isUserLogged){
+            return "redirect:/login";
+        }
+
         List<UserPlacing> userPlacing = teamRepository.selectUserPlacing();
         List<Members> membersPlacing = teamRepository.selectAllOrderByScore();
+        model.addAttribute("counter2", new Counter());
+        model.addAttribute("counter", new Counter());
         model.addAttribute("membersPlacing", membersPlacing);
         model.addAttribute("userPlacing", userPlacing);
         return "placings";
     }
 
-    @GetMapping("/FAQ")
-    public String FAQ(){
-        return "";
-    }
 }
