@@ -5,6 +5,26 @@
     label{
         color: white;
     }
+    a {
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        color:white !important;
+        text-decoration:none !important;
+        cursor:pointer;
+    }
+
+    p{
+        padding-top: 20px;
+        color: white;
+        font-size: 20px;
+    }
+
+    .navbar.bg-dark{
+        background-color: black !important;
+    }
 </style>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -16,9 +36,16 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body id="grad1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
+    </div>
+</nav>
 <div class="container text-center">
     <div>
-        <img src="new_account.png" height="100px" width="1000px">
+        <br><br>
+        <img src="new_account.png" height="50px">
+        <br><br>
     </div>
     <form th:action="@{/process_register}" th:object="${users}"
           method="post" style="max-width: 600px; margin: 0 auto;">
@@ -46,6 +73,10 @@
 
             <div>
                 <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Crea account</button>
+            </div>
+            <p>oppure</p>
+            <div>
+                <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1"><a th:href="@{/login}">Accedi</a></button>
             </div>
         </div>
     </form>

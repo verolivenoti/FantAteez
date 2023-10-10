@@ -18,30 +18,22 @@
     .navbar.bg-dark{
         background-color: black !important;
     }
-
-    #class,#help,#bonus{
-        padding-top: 20px;
-        padding-left: 20px;
-    }
 </style>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="ISO-8859-1">
-        <title>Sign Up - CodeJava</title>
+        <title>FantAteez</title>
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-        <script>
-            function loadBanner(member_name) {
-                console.log(member_name);
-                document.getElementById(member_name).innerHTML = '<img src=' + member_name + '_banner.png">';
-            }
-        </script>
     </head>
     <body id="grad1">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
+                <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/classifica}" style="color: white;">Classifica</a>
+                <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/bonusList}" style="color: white;">Lista bonus</a>
+                <a class="btn navbar-btn" role="button" aria-current="page" href="https://t.me/+OAYgK_L-6cg5NzY0" style="color: white;">FAQ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,13 +50,13 @@
                     <td><div class="container"><div class="bottom-left"><span th:text="${member.score}"/></div><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></div></td>
                 </tr>
             </table>
-            <table>
-                <tr >
-                    <td id="class"><a th:href="@{/classifica}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Vedi classifica</button></a></td>
-                    <td id="help"><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Aiuto</button></a></td>
-                    <td id="bonus"><a th:href="@{/bonusList}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Lista bonus</button></a></td>
-                </tr>
-            </table>
+<!--            <table>-->
+<!--                <tr >-->
+<!--                    <td id="class"><a th:href="@{/classifica}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Vedi classifica</button></a></td>-->
+<!--                    <td id="help"><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Aiuto</button></a></td>-->
+<!--                    <td id="bonus"><a th:href="@{/bonusList}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Lista bonus</button></a></td>-->
+<!--                </tr>-->
+<!--            </table>-->
         </div>
     </body>
 </html>
