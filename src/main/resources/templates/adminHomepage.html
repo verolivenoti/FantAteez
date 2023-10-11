@@ -29,30 +29,30 @@
     .closebtn:hover {
         color: black;
     }
+
+    .navbar.bg-dark{
+        background-color: black !important;
+    }
+
+    #grad1 {
+        background-image: linear-gradient(black, #7800ff);
+    }
+
 </style>
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Sign Up - CodeJava</title>
+    <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body id="grad1">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand">Spring Security Custom Login-Logout Example</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
-                </li>
-            </ul>
-        </div>
+        <a class="navbar-brand"><img src="admin.png" style="max-width:40%;height:auto;"></a>
+        <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
     </div>
 </nav>
 <div class="container text-center">
@@ -68,52 +68,104 @@
             <span th:text="${message}"></span>
         </div>
     </th:block>
-    <form th:action="@{/addPoints}"
-          method="post" style="max-width: 600px; margin: 0 auto;">
-        <label for="bonus">Seleziona il bonus:</label>
-        <input type="text" name="bonus" list="bonus">
-        <datalist id="bonus">
-            <option th:each="bonus: ${bonuses}" th:value="${bonus.getBonus()}">
-        </datalist>
+    <div class="accordion" id="accordionExample" style="padding-top: 5vw;">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Aggiorna punti
+                    </button>
+                </h2>
+            </div>
 
-        <br><label for="member">Seleziona il membro:</label>
-        <input type="text" name="member" list="member">
-        <datalist id="member">
-            <option th:each="member: ${members}" th:value="${member.getName()}">
-        </datalist>
-        <div>
-            <button type="submit" class="btn btn-primary">Aggiungi punti</button>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form th:action="@{/addPoints}"
+                          method="post" style="max-width: 600px; margin: 0 auto;" autocomplete="off">
+                        <label for="bonus">Seleziona il bonus:</label>
+                        <input type="text" name="bonus" list="bonus">
+                        <datalist id="bonus">
+                            <option th:each="bonus: ${bonuses}" th:value="${bonus.getBonus()}">
+                        </datalist>
+
+                        <br><label for="member">Seleziona il membro:</label>
+                        <input type="text" name="member" list="member">
+                        <datalist id="member">
+                            <option th:each="member: ${members}" th:value="${member.getName()}">
+                        </datalist>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Aggiungi punti</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Nuovo bonus
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form th:action="@{/newBonus}"
+                          method="post" style="max-width: 600px; margin: 0 auto;" autocomplete="off">
+                        <label for="bonus">Inserisci la descrizione del bonus:</label>
+                        <input type="text" name="bonus">
 
-    <form th:action="@{/newBonus}"
-          method="post" style="max-width: 600px; margin: 0 auto;">
-        <label for="bonus">Inserisci la descrizione del bonus:</label>
-        <input type="text" name="bonus">
-
-        <br><label for="member">Inserisci il numero di punti:</label>
-        <input type="number" name="points">
-        <div>
-            <button type="submit" class="btn btn-primary">Aggiungi nuovo bonus</button>
+                        <br><label for="member">Inserisci il numero di punti:</label>
+                        <input type="number" name="points">
+                        <div>
+                            <button type="submit" class="btn btn-primary">Aggiungi nuovo bonus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Elimina bonus
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form th:action="@{/deleteBonus}"
+                          method="post" style="max-width: 600px; margin: 0 auto;" autocomplete="off">
+                        <label for="bonus2">Inserisci la descrizione del bonus:</label>
+                        <input type="text" name="bonus" list="bonus2">
+                        <datalist id="bonus2">
+                            <option th:each="bonus: ${bonuses}" th:value="${bonus.getBonus()}">
+                        </datalist>
 
-    <form th:action="@{/deleteBonus}"
-          method="post" style="max-width: 600px; margin: 0 auto;">
-        <label for="bonus2">Inserisci la descrizione del bonus:</label>
-        <input type="text" name="bonus" list="bonus2">
-        <datalist id="bonus2">
-            <option th:each="bonus: ${bonuses}" th:value="${bonus.getBonus()}">
-        </datalist>
-
-        <div>
-            <button type="submit" class="btn btn-primary">Elimina bonus</button>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Elimina bonus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
-
-    <div>
-        <a th:href="@{/resetTeams}" th:data-confirm-delete="|Vuoi veramente resettare i team?|"
-           onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"><button type="submit" class="btn btn-primary" >Resetta i team</button></a>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Reset team
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div class="card-body">
+                    <a th:href="@{/resetTeams}" th:data-confirm-delete="|Vuoi veramente resettare i team?|"
+                       onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                        <button type="submit" class="btn btn-primary" >Resetta i team</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
