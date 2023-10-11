@@ -57,6 +57,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -80,6 +81,12 @@
             <span th:text="${error}"></span>
         </div>
     </th:block>
+    <th:block th:if="${credentialError != null}">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${credentialError}"></span>
+        </div>
+    </th:block>
     <form th:action="@{/process_login}" th:object="${users}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
@@ -93,11 +100,9 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Password: </label>
                 <div class="col-8">
-                    <input type="password" th:field="*{password}" class="form-control"
-                           required minlength="6" maxlength="20"/>
+                    <input type="password" th:field="*{password}" class="form-control"/>
                 </div>
             </div>
-            <th:block th:if="${credentialError != null}"><span th:text="${credentialError}"></span></th:block>
             <div>
                 <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Accedi</button>
             </div>

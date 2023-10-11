@@ -22,6 +22,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FantAteez</title>
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -47,7 +48,7 @@
             <table>
                 <tr th:each="member: ${scores}">
 
-                    <td><div class="container"><div class="bottom-left"><span th:text="${member.score}"/></div><img th:src="${member.member_name} + '_banner.png'" width="900" height="100"/></div></td>
+                    <td><div class="container"><div class="bottom-left"><span th:text="${member.score}" style="font-size:3vw"/></div><img th:src="${member.member_name} + '_banner.png'" style="max-width:100%;height:auto;"/></div></td>
                 </tr>
             </table>
 <!--            <table>-->
