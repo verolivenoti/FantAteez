@@ -17,9 +17,9 @@
     }
 
     p{
-        padding-top: 20px;
+        padding-top: 0.5vw;
         color: white;
-        font-size: 20px;
+        font-size: 1vw;
     }
 
     .navbar.bg-dark{
@@ -30,6 +30,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -38,17 +39,17 @@
 <body id="grad1">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
+        <a class="navbar-brand"><img src="FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
     </div>
 </nav>
 <div class="container text-center">
     <div>
         <br><br>
-        <img src="new_account.png" height="50px">
+        <img src="new_account.png" style="max-width: 50%; margin: 0 auto;">
         <br><br>
     </div>
     <form th:action="@{/process_register}" th:object="${users}"
-          method="post" style="max-width: 600px; margin: 0 auto;">
+          method="post" style="max-width: 50%; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">
                 <label class="col-4 col-form-label">Email: </label>

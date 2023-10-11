@@ -1,10 +1,4 @@
 <style>
-    .bottom-left {
-        position: absolute;
-        bottom: 35px;
-        left: 50px;
-        font-size: 30px;
-    }
     .container {
         position: relative;
         text-align: center;
@@ -20,16 +14,22 @@
     }
 
     td{
-        font-size: 20px;
+        font-size: 1vw;
         color: white;
-        padding-right: 20px;
+        padding-right: 5vw;
         text-align: center;
         vertical-align: middle;
+    }
+
+    .header{
+        padding-bottom: 0.5vw;
+        padding-top: 0.5vw;
     }
 </style>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -38,24 +38,21 @@
 <body id="grad1">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
+        <a class="navbar-brand"><img src="FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
         <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/yourTeam}" style="color: white;">Il tuo Team</a>
         <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/bonusList}" style="color: white;">Lista bonus</a>
         <a class="btn navbar-btn" role="button" aria-current="page" href="https://t.me/+OAYgK_L-6cg5NzY0" style="color: white;">FAQ</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
     </div>
 </nav>
 <div class="container text-center">
-    <img src="classifica_utenti.png" height="50px">
+    <img src="classifica_utenti.png" style="max-width: 50%; margin: 0 auto;">
     <table th:with="mycounter = ${counter.get()}" align="center">
         <tr style="background-color: #7118b1">
-            <td>POSIZIONE</td>
-            <td>UTENTE</td>
-            <td>TEAM</td>
-            <td>PUNTEGGIO</td>
+            <td class="header" style="padding-left: 3vw;">POSIZIONE</td>
+            <td class="header">UTENTE</td>
+            <td class="header">TEAM</td>
+            <td class="header">PUNTEGGIO</td>
         </tr>
         <tr th:each="user: ${userPlacing}" style="border-bottom: 2px solid #7118b1;">
             <td th:with="mycounter=${counter.incrementAndGet()}"><img th:src="${mycounter} + '.png'" height="30px"/></td>
@@ -65,12 +62,12 @@
         </tr>
     </table>
     <br><br>
-    <img src="classifica_membri.png" height="50px">
+    <img src="classifica_membri.png"  style="max-width: 50%; margin: 0 auto;">
     <table align="center" th:with="mycounter2 = ${counter2.get()}">
         <tr style="background-color: #7118b1">
-            <td>POSIZIONE</td>
-            <td>MEMBRO</td>
-            <td>PUNTEGGIO</td>
+            <td class="header" style="padding-left: 3vw;">POSIZIONE</td>
+            <td class="header">MEMBRO</td>
+            <td class="header">PUNTEGGIO</td>
         </tr>
         <tr th:each="member: ${membersPlacing}"  style="border-bottom: 2px solid #7118b1;">
             <td th:with="mycounter2=${counter2.incrementAndGet()}"><img th:src="${mycounter2} + '.png'" height="30px"/></td>

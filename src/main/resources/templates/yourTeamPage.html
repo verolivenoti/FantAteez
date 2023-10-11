@@ -1,9 +1,8 @@
 <style>
     .bottom-left {
         position: absolute;
-        bottom: 35px;
-        left: 50px;
-        font-size: 30px;
+        bottom: 30%;
+        left: 10%;
     }
     .container {
         position: relative;
@@ -31,33 +30,23 @@
     <body id="grad1">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand"><img src="FANTATEEZ.png" height="50px"></a>
+                <a class="navbar-brand"><img src="FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
                 <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/classifica}" style="color: white;">Classifica</a>
                 <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/bonusList}" style="color: white;">Lista bonus</a>
                 <a class="btn navbar-btn" role="button" aria-current="page" href="https://t.me/+OAYgK_L-6cg5NzY0" style="color: white;">FAQ</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
             </div>
         </nav>
         <div class="container text-center">
             <div>
-                <h1 th:text="${header}"></h1>
+                <span th:text="${header}" style="font-size:2.5vw;"></span>
             </div>
             <table>
                 <tr th:each="member: ${scores}">
 
-                    <td><div class="container"><div class="bottom-left"><span th:text="${member.score}" style="font-size:3vw"/></div><img th:src="${member.member_name} + '_banner.png'" style="max-width:100%;height:auto;"/></div></td>
+                    <td><div class="container"><div class="bottom-left"><span th:text="${member.score}" style="font-size:1.5vw"/></div><img th:src="${member.member_name} + '_banner.png'" style="max-width:100%;height:auto;"/></div></td>
                 </tr>
             </table>
-<!--            <table>-->
-<!--                <tr >-->
-<!--                    <td id="class"><a th:href="@{/classifica}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Vedi classifica</button></a></td>-->
-<!--                    <td id="help"><a href="https://t.me/+OAYgK_L-6cg5NzY0"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Aiuto</button></a></td>-->
-<!--                    <td id="bonus"><a th:href="@{/bonusList}"><button class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Lista bonus</button></a></td>-->
-<!--                </tr>-->
-<!--            </table>-->
         </div>
     </body>
 </html>

@@ -2,12 +2,25 @@
     input[type="checkbox"]  {
         display: none;
     }
-    body {background-color: coral;}
+
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    #grad1 {
+        background-image: linear-gradient(black, #7800ff);
+    }
+
+    .navbar.bg-dark{
+        background-color: black !important;
+    }
 </style>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Sign Up - CodeJava</title>
+    <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -32,13 +45,18 @@
         }
     </script>
 </head>
-<body style="background-color: coral;">
-<div class="container text-center">
-    <div>
-        <h1>Benvenuto, crea la tua squadra</h1>
+<body id="grad1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand"><img src="FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
+        <a class="btn navbar-btn" role="button" aria-current="page" href="https://t.me/+OAYgK_L-6cg5NzY0" style="color: white;">FAQ</a>
+        <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
     </div>
+</nav>
+<div class="container text-center">
+    <img src="crea_squadra.png">
 
-    <form method="post" th:action="@{/newTeam}" th:object="${teams}">
+    <form method="post" th:action="@{/newTeam}" th:object="${teams}" style="max-width: 70%; margin: 0 auto;">
         <label id="Hongjoong"><input type="checkbox" name="memberName" value="Hongjoong" onchange="change(Hongjoong, 'Hongjoong', this)"><img src="icon_Hongjoong.png" width="150" height="150" style="background: transparent;"/></label>
         <label id="Seonghwa"><input type="checkbox" name="memberName" value="Seonghwa" onchange="change(Seonghwa, 'Seonghwa', this)"><img src="icon_Seonghwa.png" width="150" height="150"/></label>
         <label id="Yunho"><input type="checkbox" name="memberName" value="Yunho" onchange="change(Yunho, 'Yunho', this)"><img src="icon_Yunho.png" width="150" height="150"/></label>
@@ -49,9 +67,13 @@
         <label id="Jongho"><input type="checkbox" name="memberName" value="Jongho" onchange="change(Jongho, 'Jongho', this)"><img src="icon_Jongho.png" width="150" height="150"/></label>
         <input type="hidden" id="captain" name="captain" value="">
         <input type="hidden" id="idUser" name="idUser" th:value="${idUser}">
-        <br><br>Il primo membro selezionato sar&agrave; il capitano della tua squadra!<br><br>
-        <input type="text" id="teamName" name="teamName" placeholder="Inserisci il nome della tua squadra">
-        <input type="submit">
+        <div class="form-group row" style="padding-top: 5%; padding-left: 5%;">
+            <label class="col-4 col-form-label">Inserisci il nome del tuo team: </label>
+            <div class="col-3">
+                <input type="text" id="teamName" name="teamName" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary" style="background-color: #7118b1; border-color: #7118b1">Crea team</button>
+        </div>
     </form>
 </div>
 </body>
