@@ -3,7 +3,6 @@ package com.capitaneriadiporto.fantateez;
 import com.capitaneriadiporto.fantateez.Utils.Counter;
 import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.CaptainRepository;
-import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
 import com.capitaneriadiporto.fantateez.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -12,11 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -170,6 +168,7 @@ public class TeamController {
                 }
             }
         }
+        userPlacing.sort(Comparator.comparing(UserPlacing::getScore).reversed());
         List<Members> membersPlacing = teamRepository.selectAllOrderByScore();
         model.addAttribute("counter2", new Counter());
         model.addAttribute("counter", new Counter());

@@ -43,11 +43,12 @@ public class TeamRepositoryImpl {
                 "LEFT JOIN users u ON u.id=t.id_user " +
                 "WHERE u.token=? AND t.captain=false " +
                 "UNION " +
-                "SELECT t.team_name, c.member_name, c.points FROM captains c " +
+                "SELECT DISTINCT t.team_name, c.member_name, c.points FROM captains c " +
                 "LEFT JOIN users u ON u.id=c.id_user " +
                 "LEFT JOIN teams t ON t.id_user=u.id " +
+                "WHERE c.id_user=(SELECT id FROM users WHERE token=?)" +
                 "ORDER BY score DESC")
-                .setParameter(1, token).unwrap(org.hibernate.query.Query.class)
+                .setParameter(1, token).setParameter(2, token).unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new AliasToBeanResultTransformer(Scores.class))
                 .list();
     }
