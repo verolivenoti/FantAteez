@@ -29,11 +29,24 @@ public class TeamRepositoryImpl {
     }
 
     @Transactional
+    public void insertCaptain(String member_name, int idUser){
+        entityManager.createNativeQuery("INSERT INTO captains (member_name, id_user) VALUES (?,?)")
+                .setParameter(1, member_name)
+                .setParameter(2, idUser)
+                .executeUpdate();
+    }
+
+    @Transactional
     public List<Scores> teamWithMembersNameAndScores(String token){
          return entityManager.createNativeQuery("SELECT t.team_name, t.member_name, m.score FROM teams t " +
                 "LEFT JOIN members m ON m.name=t.member_name " +
                 "LEFT JOIN users u ON u.id=t.id_user " +
-                "WHERE u.token=?")
+                "WHERE u.token=? AND t.captain=false " +
+                "UNION " +
+                "SELECT t.team_name, c.member_name, c.points FROM captains c " +
+                "LEFT JOIN users u ON u.id=c.id_user " +
+                "LEFT JOIN teams t ON t.id_user=u.id " +
+                "ORDER BY score DESC")
                 .setParameter(1, token).unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new AliasToBeanResultTransformer(Scores.class))
                 .list();
@@ -49,12 +62,12 @@ public class TeamRepositoryImpl {
 
     @Transactional
     public List<UserPlacing> selectUserPlacing(){
-        return entityManager.createNativeQuery("SELECT u.username, t.team_name, sum(m.score) AS score FROM public.users u " +
-                        "RIGHT JOIN public.teams t ON t.id_user=u.id " +
-                        "LEFT JOIN public.members m ON m.name=t.member_name " +
-                        "WHERE u.role LIKE 'USER' " +
-                        "GROUP BY u.username, t.team_name " +
-                        "ORDER BY score " +
+        return entityManager.createNativeQuery("SELECT u.username, t.team_name, sum(m.score) AS score, u.id FROM users u " +
+                        "RIGHT JOIN teams t ON t.id_user=u.id " +
+                        "LEFT JOIN members m ON m.name=t.member_name " +
+                        "WHERE u.role LIKE 'USER' AND t.captain=false " +
+                        "GROUP BY u.username, t.team_name, u.id " +
+                        "ORDER BY score DESC " +
                         "LIMIT 10")
                 .unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new AliasToBeanResultTransformer(UserPlacing.class))

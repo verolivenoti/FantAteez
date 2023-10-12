@@ -1,8 +1,10 @@
 package com.capitaneriadiporto.fantateez;
 
 import com.capitaneriadiporto.fantateez.entity.Bonuses;
+import com.capitaneriadiporto.fantateez.entity.Log_Bonus;
 import com.capitaneriadiporto.fantateez.entity.Members;
 import com.capitaneriadiporto.fantateez.repository.BonusRepository;
+import com.capitaneriadiporto.fantateez.repository.LogRepository;
 import com.capitaneriadiporto.fantateez.repository.MemberRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,17 @@ public class BonusController {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private LogRepository logRepository;
+
     @PostMapping("/addPoints")
     public String addPoints(@RequestParam("member") String member, @RequestParam("bonus") String bonus, Model model){
         int rowsUpdated = bonusRepository.updatePoints(member, bonus);
+        int captainUpdate = bonusRepository.updateCaptain(member,bonus);
+        Log_Bonus logBonus = new Log_Bonus();
+        logBonus.setMember(member);
+        logBonus.setBonus(bonus);
+        logRepository.save(logBonus);
         if(rowsUpdated > 0){
             model.addAttribute("message", "Punti aggiornati correttamente");
         }else{

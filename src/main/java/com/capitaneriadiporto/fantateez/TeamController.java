@@ -2,6 +2,7 @@ package com.capitaneriadiporto.fantateez;
 
 import com.capitaneriadiporto.fantateez.Utils.Counter;
 import com.capitaneriadiporto.fantateez.entity.*;
+import com.capitaneriadiporto.fantateez.repository.CaptainRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
 import com.capitaneriadiporto.fantateez.repository.UserRepository;
@@ -26,6 +27,9 @@ public class TeamController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CaptainRepository captainRepository;
 
     public boolean checkUser(String token){
         boolean userLogged = false;
@@ -71,6 +75,7 @@ public class TeamController {
             team.setMemberName(member);
             if(teams.getCaptain().equals(member)) {
                 team.setCaptain(true);
+                teamRepository.insertCaptain(team.getMemberName(), idUser);
             }else{
                 team.setCaptain(false);
             }
@@ -157,6 +162,14 @@ public class TeamController {
         }
 
         List<UserPlacing> userPlacing = teamRepository.selectUserPlacing();
+        List<Captain> captains = captainRepository.findAll();
+        for(UserPlacing up: userPlacing){
+            for(Captain c: captains){
+                if(up.getId() == c.getIdUser()){
+                    up.setScore(up.getScore()+c.getPoints());
+                }
+            }
+        }
         List<Members> membersPlacing = teamRepository.selectAllOrderByScore();
         model.addAttribute("counter2", new Counter());
         model.addAttribute("counter", new Counter());

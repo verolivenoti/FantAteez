@@ -1,5 +1,6 @@
 package com.capitaneriadiporto.fantateez.entity;
 
+
 public class UserPlacing {
 
     private String username;
@@ -7,6 +8,8 @@ public class UserPlacing {
     private String team_name;
 
     private Long score;
+
+    private int id;
 
     public UserPlacing(){}
 
@@ -38,5 +41,29 @@ public class UserPlacing {
 
     public void setPoints(Long score) {
         this.score = score;
+    }
+
+    public String getTeam_name() {
+        return team_name;
+    }
+
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
