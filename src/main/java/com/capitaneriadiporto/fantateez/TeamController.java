@@ -3,6 +3,7 @@ package com.capitaneriadiporto.fantateez;
 import com.capitaneriadiporto.fantateez.Utils.Counter;
 import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.CaptainRepository;
+import com.capitaneriadiporto.fantateez.repository.TeamRepository;
 import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
 import com.capitaneriadiporto.fantateez.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -22,6 +23,9 @@ public class TeamController {
 
     @Autowired
     private TeamRepositoryImpl teamRepository;
+
+    @Autowired
+    private TeamRepository team2Repository;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +49,7 @@ public class TeamController {
     }
 
     @PostMapping("/newTeam")
-    public String newTeam(TeamsHelper teams, RedirectAttributes redirectAttrs, HttpServletRequest request){
+    public String newTeam(TeamsHelper teams, RedirectAttributes redirectAttrs, HttpServletRequest request, Model model){
 
         String token = "";
 
@@ -62,6 +66,17 @@ public class TeamController {
 
         if(!isUserLogged){
             return "redirect:/login";
+        }
+
+        if(teams.getMemberName().size() < 5){
+            model.addAttribute("error", "Devi scegliere 5 membri");
+            return "homepage";
+        }
+
+        String existingTeamName = team2Repository.selectTeamName(teams.getTeamName());
+        if(existingTeamName!=null){
+            model.addAttribute("error", "Il nome del team scelto non è disponibile");
+            return "homepage";
         }
 
         Teams team = new Teams();

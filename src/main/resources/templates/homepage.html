@@ -1,4 +1,29 @@
 <style>
+
+    .alert {
+        padding: 20px;
+        background-color: #f44336; /* Red */
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }
+
     input[type="checkbox"]  {
         display: none;
     }
@@ -55,6 +80,13 @@
 </nav>
 <div class="container text-center">
     <img src="crea_squadra.png">
+
+    <th:block th:if="${error != null}">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${error}"></span>
+        </div>
+    </th:block>
 
     <form method="post" th:action="@{/newTeam}" th:object="${teams}" style="max-width: 70%; margin: 0 auto;">
         <label id="Hongjoong"><input type="checkbox" name="memberName" value="Hongjoong" onchange="change(Hongjoong, 'Hongjoong', this)"><img src="icon_Hongjoong.png" width="150" height="150" style="background: transparent;"/></label>
