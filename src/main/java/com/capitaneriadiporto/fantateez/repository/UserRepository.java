@@ -22,4 +22,10 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     @Modifying
     @Query(value = "UPDATE users SET token=:token WHERE id=:id", nativeQuery = true)
     void saveToken(@Param("token")String token, @Param("id") int idUser);
+
+    @Query(value = "SELECT username FROM users WHERE username=:username", nativeQuery = true)
+    String selectUsername(@Param("username")String username);
+
+    @Query(value = "SELECT email FROM users WHERE email=:email", nativeQuery = true)
+    String selectEmail(@Param("email")String email);
 }

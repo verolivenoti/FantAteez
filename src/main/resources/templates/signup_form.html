@@ -1,4 +1,28 @@
 <style>
+    .alert {
+        padding: 20px;
+        background-color: #f44336; /* Red */
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }
+
     #grad1 {
         background-image: linear-gradient(black, #7800ff);
     }
@@ -47,6 +71,12 @@
         <img src="new_account.png" style="max-width: 50%; margin: 0 auto;">
         <br><br>
     </div>
+    <th:block th:if="${error != null}">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${error}"></span>
+        </div>
+    </th:block>
     <form th:action="@{/process_register}" th:object="${users}"
           method="post">
         <div class="m-3">

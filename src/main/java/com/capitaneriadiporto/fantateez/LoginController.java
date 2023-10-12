@@ -68,11 +68,26 @@ public class LoginController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(Users users) {
+    public String processRegister(Users users, Model model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(users.getPassword());
         users.setPassword(encodedPassword);
         users.setRole("USER");
+
+        String existingUsername = userRepository.selectUsername(users.getUsername());
+        if(existingUsername!=null){
+            model.addAttribute("error", "Lo username scelto non è disponibile");
+            return "signup_form";
+        }
+        if(users.getUsername().contains(" ")){
+            model.addAttribute("error", "Lo username non può contenere spazi bianchi");
+            return "signup_form";
+        }
+        String existingMail = userRepository.selectEmail(users.getEmail());
+        if(existingMail!=null){
+            model.addAttribute("error", "Lo mail inserita è già stata usata");
+            return "signup_form";
+        }
 
         userRepository.save(users);
 
