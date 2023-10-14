@@ -1,14 +1,14 @@
 package com.capitaneriadiporto.fantateez;
 
-import com.capitaneriadiporto.fantateez.entity.Bonuses;
-import com.capitaneriadiporto.fantateez.entity.Log_Bonus;
-import com.capitaneriadiporto.fantateez.entity.Members;
+import com.capitaneriadiporto.fantateez.Utils.Counter;
+import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -19,6 +19,9 @@ public class BonusController {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private TeamRepositoryImpl teamImplRepository;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -123,5 +126,25 @@ public class BonusController {
         model.addAttribute("message", "Bonus annullato e punti aggiornati correttamente");
 
         return "adminHomepage";
+    }
+
+    @GetMapping("/classificaUtentiMembri")
+    public String classificaUtentiEMembri(Model model){
+        List<UserPlacing> userPlacing = teamImplRepository.selectUserPlacing();
+        List<Captain> captains = captainRepository.findAll();
+        for(UserPlacing up: userPlacing){
+            for(Captain c: captains){
+                if(up.getId() == c.getIdUser()){
+                    up.setScore(up.getScore()+c.getPoints());
+                }
+            }
+        }
+        userPlacing.sort(Comparator.comparing(UserPlacing::getScore).reversed());
+        List<Members> membersPlacing = teamImplRepository.selectAllOrderByScore();
+        model.addAttribute("counter2", new Counter());
+        model.addAttribute("counter", new Counter());
+        model.addAttribute("membersPlacing", membersPlacing);
+        model.addAttribute("userPlacing", userPlacing);
+        return "placingsAdmin";
     }
 }
