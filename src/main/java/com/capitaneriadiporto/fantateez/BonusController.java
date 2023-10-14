@@ -3,16 +3,11 @@ package com.capitaneriadiporto.fantateez;
 import com.capitaneriadiporto.fantateez.entity.Bonuses;
 import com.capitaneriadiporto.fantateez.entity.Log_Bonus;
 import com.capitaneriadiporto.fantateez.entity.Members;
-import com.capitaneriadiporto.fantateez.repository.BonusRepository;
-import com.capitaneriadiporto.fantateez.repository.LogRepository;
-import com.capitaneriadiporto.fantateez.repository.MemberRepository;
-import com.capitaneriadiporto.fantateez.repository.TeamRepository;
+import com.capitaneriadiporto.fantateez.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +26,9 @@ public class BonusController {
     @Autowired
     private LogRepository logRepository;
 
+    @Autowired
+    private CaptainRepository captainRepository;
+
     @PostMapping("/addPoints")
     public String addPoints(@RequestParam("member") String member, @RequestParam("bonus") String bonus, Model model){
         int rowsUpdated = bonusRepository.updatePoints(member, bonus);
@@ -46,6 +44,8 @@ public class BonusController {
         }
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
         return "adminHomepage";
@@ -60,6 +60,8 @@ public class BonusController {
 
         List<Bonuses> bonuses2 = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses2);
         model.addAttribute("members", members);
         model.addAttribute("message", "Nuovo bonus inserito correttamente");
@@ -77,6 +79,8 @@ public class BonusController {
         }
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
         return "adminHomepage";
@@ -88,9 +92,36 @@ public class BonusController {
         memberRepository.setScoresToZero();
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
         model.addAttribute("message", "Team resettati correttamente");
+        return "adminHomepage";
+    }
+
+    @RequestMapping("/deleteInsert/{id}/{bonus}/{member}")
+    public String deleteInsert(@PathVariable String bonus, @PathVariable int id, @PathVariable String member, Model model){
+
+        logRepository.deleteById(id);
+
+        int updatedRowsMember = memberRepository.updatePointsAfterDeletion(member, bonus);
+
+        if(updatedRowsMember==0){
+            model.addAttribute("error", "Errore nell'aggiornamento dei punti");
+            return "adminHomepage";
+        }
+
+        captainRepository.updateCaptainPointsAfterDeletion(member, bonus);
+
+        List<Bonuses> bonuses = bonusRepository.findAll();
+        List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
+        model.addAttribute("bonuses", bonuses);
+        model.addAttribute("members", members);
+        model.addAttribute("message", "Bonus annullato e punti aggiornati correttamente");
+
         return "adminHomepage";
     }
 }

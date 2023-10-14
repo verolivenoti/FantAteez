@@ -38,11 +38,17 @@
         background-image: linear-gradient(black, #7800ff);
     }
 
+    .header{
+        padding-bottom: 0.5vw;
+        padding-top: 0.5vw;
+    }
+
 </style>
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantAteez</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -163,6 +169,31 @@
                        onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                         <button type="submit" class="btn btn-primary" >Resetta i team</button>
                     </a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Annulla inserimento bonus
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                <div class="card-body">
+                    <table style="width:60vw" align="center">
+                        <tr style="background-color: darkgrey;">
+                            <td class="header" style="width:40vw">Bonus</td>
+                            <td class="header">Membro</td>
+                            <td class="header"></td>
+                        </tr>
+                        <tr th:each="lb: ${logBonus}" style="border-bottom: 2px solid black;">
+                            <td th:text="${lb.bonus}"/>
+                            <td th:text="${lb.member}" />
+                            <td><a th:href="@{/deleteInsert/{id}/{bonus}/{member}(member=${lb.member},bonus=${lb.bonus},id=${lb.getId()})}">Annulla</a></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

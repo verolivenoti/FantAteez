@@ -1,9 +1,6 @@
 package com.capitaneriadiporto.fantateez;
 
-import com.capitaneriadiporto.fantateez.entity.Bonuses;
-import com.capitaneriadiporto.fantateez.entity.Members;
-import com.capitaneriadiporto.fantateez.entity.Teams;
-import com.capitaneriadiporto.fantateez.entity.Users;
+import com.capitaneriadiporto.fantateez.entity.*;
 import com.capitaneriadiporto.fantateez.repository.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +32,9 @@ public class LoginController {
 
     @Autowired
     private BonusRepository bonusRepository;
+
+    @Autowired
+    private LogRepository logRepository;
 
     @GetMapping("")
     public String viewHomepage(RedirectAttributes redirectAttrs, HttpServletRequest request){
@@ -131,6 +131,8 @@ public class LoginController {
     public String adminPage(Model model){
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAll();
+        model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
         return "adminHomepage";
