@@ -131,7 +131,7 @@ public class LoginController {
     public String adminPage(Model model){
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);

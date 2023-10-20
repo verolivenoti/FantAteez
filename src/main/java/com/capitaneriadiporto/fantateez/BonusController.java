@@ -47,7 +47,7 @@ public class BonusController {
         }
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
@@ -63,7 +63,7 @@ public class BonusController {
 
         List<Bonuses> bonuses2 = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses2);
         model.addAttribute("members", members);
@@ -82,7 +82,7 @@ public class BonusController {
         }
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
@@ -95,7 +95,7 @@ public class BonusController {
         memberRepository.setScoresToZero();
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
@@ -119,7 +119,7 @@ public class BonusController {
 
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();
-        List<Log_Bonus> logBonuses = logRepository.findAll();
+        List<Log_Bonus> logBonuses = logRepository.findAllOrderByDate();
         model.addAttribute("logBonus", logBonuses);
         model.addAttribute("bonuses", bonuses);
         model.addAttribute("members", members);
