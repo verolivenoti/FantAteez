@@ -51,21 +51,27 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script>
         function change(x, id, _this) {
-            if ($('input[type=checkbox]:checked').length === 1) {
-                var elem = document.getElementById("captain");
-                document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)" checked><img src="icon_' + id + '_captain.png" width="150" height="150">';
+            console.log($('input[type=checkbox]:checked').length);
+            var elem = document.getElementById("captain");
+            console.log(elem);
+            if ($('input[type=checkbox]:checked').length === 1 && elem.value === "") {
+                document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)" checked><img src="/icons/captains/icon_' + id + '_captain.png" width="150" height="150">';
                 elem.value = id;
                 console.log(elem.value);
             }else if ($('input[type=checkbox]:checked').length > 5) {
-                alert("allowed only 5");
+                alert("Puoi selezionare al massimo 5 membri");
                 _this.checked = false;
-                document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)"><img src="icon_' + id + '.png" width="150" height="150">';
+                document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)"><img src="/icons/base/icon_' + id + '.png" width="150" height="150">';
             }else{
                 if (_this.checked) {
-                    document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)" checked><img src="icon_' + id + '_member.png" width="150" height="150">';
+                    document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)" checked><img src="/icons/members/icon_' + id + '_member.png" width="150" height="150">';
                 } else  {
-                    document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)"><img src="icon_' + id + '.png" width="150" height="150">';
+                    document.getElementById(id).innerHTML = '<input type="checkbox" name="memberName" value="' + id + '" onchange="change(' + id + ', \'' + id + '\', this)"><img src="/icons/base/icon_' + id + '.png" width="150" height="150">';
                 }
+            }
+
+            if($('input[type=checkbox]:checked').length === 0) {
+                elem.value = "";
             }
         }
     </script>
@@ -79,13 +85,13 @@
 <body id="grad1">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
+        <a class="navbar-brand"><img src="/titles/FANTATEEZ.png" style="max-width:40%;height:auto;"></a>
         <a class="btn navbar-btn" role="button" aria-current="page" href="https://t.me/+OAYgK_L-6cg5NzY0" style="color: white;">FAQ</a>
         <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
     </div>
 </nav>
 <div class="container text-center">
-    <img src="crea_squadra.png">
+    <img src="/titles/crea_squadra.png">
 
     <th:block th:if="${error != null}">
         <div class="alert">
@@ -95,14 +101,14 @@
     </th:block>
 
     <form method="post" th:action="@{/newTeam}" th:object="${teams}" style="max-width: 70%; margin: 0 auto;">
-        <label id="Hongjoong"><input type="checkbox" name="memberName" value="Hongjoong" onchange="change(Hongjoong, 'Hongjoong', this)"><img src="icon_Hongjoong.png" width="150" height="150" style="background: transparent;"/></label>
-        <label id="Seonghwa"><input type="checkbox" name="memberName" value="Seonghwa" onchange="change(Seonghwa, 'Seonghwa', this)"><img src="icon_Seonghwa.png" width="150" height="150"/></label>
-        <label id="Yunho"><input type="checkbox" name="memberName" value="Yunho" onchange="change(Yunho, 'Yunho', this)"><img src="icon_Yunho.png" width="150" height="150"/></label>
-        <label id="Yeosang"><input type="checkbox" name="memberName" value="Yeosang" onchange="change(Yeosang, 'Yeosang', this)"><img src="icon_Yeosang.png" width="150" height="150"/></label><br>
-        <label id="Mingi"><input type="checkbox" name="memberName" value="Mingi" onchange="change(Mingi, 'Mingi', this)"><img src="icon_Mingi.png" width="150" height="150"/></label>
-        <label id="San"><input type="checkbox" name="memberName" value="San" onchange="change(San, 'San', this)"><img src="icon_San.png" width="150" height="150"/></label>
-        <label id="Wooyoung"><input type="checkbox" name="memberName" value="Wooyoung" onchange="change(Wooyoung, 'Wooyoung', this)"><img src="icon_Wooyoung.png" width="150" height="150"/></label>
-        <label id="Jongho"><input type="checkbox" name="memberName" value="Jongho" onchange="change(Jongho, 'Jongho', this)"><img src="icon_Jongho.png" width="150" height="150"/></label>
+        <label id="Hongjoong"><input type="checkbox" name="memberName" value="Hongjoong" onchange="change(Hongjoong, 'Hongjoong', this)"><img src="/icons/base/icon_Hongjoong.png" width="150" height="150" style="background: transparent;"/></label>
+        <label id="Seonghwa"><input type="checkbox" name="memberName" value="Seonghwa" onchange="change(Seonghwa, 'Seonghwa', this)"><img src="/icons/base/icon_Seonghwa.png" width="150" height="150"/></label>
+        <label id="Yunho"><input type="checkbox" name="memberName" value="Yunho" onchange="change(Yunho, 'Yunho', this)"><img src="/icons/base/icon_Yunho.png" width="150" height="150"/></label>
+        <label id="Yeosang"><input type="checkbox" name="memberName" value="Yeosang" onchange="change(Yeosang, 'Yeosang', this)"><img src="/icons/base/icon_Yeosang.png" width="150" height="150"/></label><br>
+        <label id="Mingi"><input type="checkbox" name="memberName" value="Mingi" onchange="change(Mingi, 'Mingi', this)"><img src="/icons/base/icon_Mingi.png" width="150" height="150"/></label>
+        <label id="San"><input type="checkbox" name="memberName" value="San" onchange="change(San, 'San', this)"><img src="/icons/base/icon_San.png" width="150" height="150"/></label>
+        <label id="Wooyoung"><input type="checkbox" name="memberName" value="Wooyoung" onchange="change(Wooyoung, 'Wooyoung', this)"><img src="/icons/base/icon_Wooyoung.png" width="150" height="150"/></label>
+        <label id="Jongho"><input type="checkbox" name="memberName" value="Jongho" onchange="change(Jongho, 'Jongho', this)"><img src="/icons/base/icon_Jongho.png" width="150" height="150"/></label>
         <input type="hidden" id="captain" name="captain" value="">
         <input type="hidden" id="idUser" name="idUser" th:value="${idUser}">
         <div class="form-group row" style="padding-top: 5%; padding-left: 5%;">

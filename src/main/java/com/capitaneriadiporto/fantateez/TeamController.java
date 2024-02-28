@@ -2,10 +2,7 @@ package com.capitaneriadiporto.fantateez;
 
 import com.capitaneriadiporto.fantateez.Utils.Counter;
 import com.capitaneriadiporto.fantateez.entity.*;
-import com.capitaneriadiporto.fantateez.repository.CaptainRepository;
-import com.capitaneriadiporto.fantateez.repository.TeamRepository;
-import com.capitaneriadiporto.fantateez.repository.TeamRepositoryImpl;
-import com.capitaneriadiporto.fantateez.repository.UserRepository;
+import com.capitaneriadiporto.fantateez.repository.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +25,19 @@ public class TeamController {
     private TeamRepository team2Repository;
 
     @Autowired
+    private BonusRepository bonusRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private CaptainRepository captainRepository;
+
+    @Autowired
+    private LogRepository logRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     public boolean checkUser(String token){
         boolean userLogged = false;
@@ -80,15 +86,24 @@ public class TeamController {
         }
 
         Teams team = new Teams();
+        List<Log_Bonus> logList = logRepository.findAll();
 
         for(String member: teams.getMemberName()){
             int idUser = teams.getIdUser();
             team.setIdUser(teams.getIdUser());
             team.setTeamName(teams.getTeamName());
             team.setMemberName(member);
+
             if(teams.getCaptain().equals(member)) {
+
+                int captainScore = 0;
+
+                if(!logList.isEmpty()){
+                    captainScore = memberRepository.selectCaptainScore(member);
+                }
+
                 team.setCaptain(true);
-                teamRepository.insertCaptain(team.getMemberName(), idUser);
+                teamRepository.insertCaptain(team.getMemberName(), idUser, captainScore*2);
             }else{
                 team.setCaptain(false);
             }
@@ -150,7 +165,7 @@ public class TeamController {
             return "redirect:/login";
         }
 
-        List<Bonuses> bonuses = teamRepository.findAllBonuses();
+        List<Bonuses> bonuses = bonusRepository.findAllBonuses();
         model.addAttribute("bonuses", bonuses);
         return "bonusList";
     }

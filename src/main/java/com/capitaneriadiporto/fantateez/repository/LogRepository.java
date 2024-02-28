@@ -13,4 +13,6 @@ public interface LogRepository extends JpaRepository<Log_Bonus, Integer> {
 
     @Query(value = "SELECT * FROM log_bonus ORDER BY date DESC", nativeQuery = true)
     public List<Log_Bonus> findAllOrderByDate();
+
+    public List<Log_Bonus> findAll();
 }

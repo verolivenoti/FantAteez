@@ -22,4 +22,7 @@ public interface BonusRepository extends JpaRepository<Bonuses, Integer> {
 
     @Query(value = "", nativeQuery = true)
     public int deleteByBonus(String bonus);
+
+    @Query(value = "SELECT * FROM bonuses b ORDER BY b.points", nativeQuery = true)
+    public List<Bonuses> findAllBonuses();
 }

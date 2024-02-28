@@ -18,4 +18,7 @@ public interface MemberRepository extends JpaRepository<Members, String> {
     @Query(value = "UPDATE members SET score=(SELECT score FROM members WHERE name=?1) - (SELECT points FROM bonuses WHERE bonus=?2) " +
             "WHERE name=?1", nativeQuery = true)
     public int updatePointsAfterDeletion(String member, String bonus);
+
+    @Query(value = "SELECT score FROM members WHERE name=?1",  nativeQuery = true)
+    public int selectCaptainScore(String memberName);
 }

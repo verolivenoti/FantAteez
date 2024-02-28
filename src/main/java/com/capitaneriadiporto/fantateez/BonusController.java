@@ -92,6 +92,7 @@ public class BonusController {
     @GetMapping("/resetTeams")
     public String resetTeams(Model model){
         teamRepository.deleteAll();
+        captainRepository.deleteAll();
         memberRepository.setScoresToZero();
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();

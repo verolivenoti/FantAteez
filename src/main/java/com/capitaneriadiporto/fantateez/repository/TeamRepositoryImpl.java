@@ -29,10 +29,11 @@ public class TeamRepositoryImpl {
     }
 
     @Transactional
-    public void insertCaptain(String member_name, int idUser){
-        entityManager.createNativeQuery("INSERT INTO captains (member_name, id_user) VALUES (?,?)")
+    public void insertCaptain(String member_name, int idUser, int captainScore){
+        entityManager.createNativeQuery("INSERT INTO captains (member_name, id_user, points) VALUES (?,?,?)")
                 .setParameter(1, member_name)
                 .setParameter(2, idUser)
+                .setParameter(3, captainScore)
                 .executeUpdate();
     }
 
@@ -50,14 +51,6 @@ public class TeamRepositoryImpl {
                 "ORDER BY score DESC")
                 .setParameter(1, token).setParameter(2, token).unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new AliasToBeanResultTransformer(Scores.class))
-                .list();
-    }
-
-    @Transactional
-    public List<Bonuses> findAllBonuses(){
-        return entityManager.createNativeQuery("SELECT b.bonus, b.points FROM bonuses b ORDER BY b.points")
-                .unwrap(org.hibernate.query.Query.class)
-                .setResultTransformer(new AliasToBeanResultTransformer(Bonuses.class))
                 .list();
     }
 

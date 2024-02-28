@@ -38,13 +38,13 @@
 <body id="grad1">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="admin.png" style="max-width:40%;height:auto;"></a>
+        <a class="navbar-brand"><img src="/titles/admin.png" style="max-width:40%;height:auto;"></a>
         <a class="btn navbar-btn" role="button" aria-current="page" th:href="@{/adminPage}" style="color: white;">Homepage</a>
         <a class="btn navbar-btn navbar-right" role="button" aria-current="page" th:href="@{/logout}" style="color: white;">Logout</a>
     </div>
 </nav>
 <div class="container text-center">
-    <img src="classifica_utenti.png" style="max-width: 50%; margin: 0 auto;">
+    <img src="/titles/classifica_utenti.png" style="max-width: 50%; margin: 0 auto;">
     <table th:with="mycounter = ${counter.get()}" align="center">
         <tr style="background-color: #7118b1">
             <td class="header" style="padding-left: 3vw;">POSIZIONE</td>
@@ -60,7 +60,7 @@
         </tr>
     </table>
     <br><br>
-    <img src="classifica_membri.png"  style="max-width: 50%; margin: 0 auto;">
+    <img src="/titles/classifica_membri.png"  style="max-width: 50%; margin: 0 auto;">
     <table align="center" th:with="mycounter2 = ${counter2.get()}">
         <tr style="background-color: #7118b1">
             <td class="header" style="padding-left: 3vw;">POSIZIONE</td>
