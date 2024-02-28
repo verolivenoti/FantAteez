@@ -93,6 +93,7 @@ public class BonusController {
     public String resetTeams(Model model){
         teamRepository.deleteAll();
         captainRepository.deleteAll();
+        logRepository.deleteAll();
         memberRepository.setScoresToZero();
         List<Bonuses> bonuses = bonusRepository.findAll();
         List<Members> members = memberRepository.findAll();

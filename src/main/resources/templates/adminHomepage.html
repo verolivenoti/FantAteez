@@ -187,11 +187,13 @@
                         <tr style="background-color: darkgrey;">
                             <td class="header" style="width:40vw">Bonus</td>
                             <td class="header">Membro</td>
+                            <td class="header">Data inserimento</td>
                             <td class="header"></td>
                         </tr>
                         <tr th:each="lb: ${logBonus}" style="border-bottom: 2px solid black;">
                             <td th:text="${lb.bonus}"/>
                             <td th:text="${lb.member}" />
+                            <td th:text="${lb.date}" />
                             <td><a th:href="@{/deleteInsert/{id}/{bonus}/{member}(member=${lb.member},bonus=${lb.bonus},id=${lb.getId()})}">Annulla</a></td>
                         </tr>
                     </table>
